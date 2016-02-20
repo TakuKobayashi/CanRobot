@@ -10,9 +10,10 @@ public class IfMethodBlock : AbstractMethodBlock {
     
     private int value = 0;
 	// Use this for initialization
-	void Start () {
-	
-	}
+	void Start ()
+    {
+
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -22,16 +23,17 @@ public class IfMethodBlock : AbstractMethodBlock {
     public override void Method()
     {
         gameObject.GetComponent<Image>().color = Color.yellow; //デバッグ用に色を変える
-        Debug.Log("行先" + value);
-        if (m_NextMethods[value] != null)
+        if (true)
         {
             gameObject.GetComponent<Image>().color = Color.white; //デバッグ用に色を変える
-            m_NextMethods[value].Method();
+            if (m_NextMethods[0] == null) return;
+            m_NextMethods[0].Method();
         }
         else
         {
             gameObject.GetComponent<Image>().color = Color.white; //デバッグ用に色を変える
-            Debug.Log(gameObject.name + "次の処理がありません");
+            if (m_NextMethods[1] == null) return;
+            m_NextMethods[1].Method();
         }
     }
 

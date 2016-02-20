@@ -6,6 +6,6 @@ public class DropObject : MonoBehaviour, IDropHandler
 {
     public void OnDrop(PointerEventData e)
     {
-        DragObject.obj.position = transform.position;
+        e.position = transform.position;
     }
 }

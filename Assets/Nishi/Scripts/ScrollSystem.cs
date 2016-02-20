@@ -5,8 +5,8 @@ public class ScrollSystem : MonoBehaviour {
 
     RectTransform rect;
 
+    Vector3 oldMousePosition;
     Vector3 nowMousePosition;
-    Vector3 nextMousePosition;
 
     // Use this for initialization
     void Start ()
@@ -17,18 +17,17 @@ public class ScrollSystem : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-        nowMousePosition = Vector3.zero;
-        nextMousePosition = Vector3.zero;
-        if(Input.GetMouseButtonDown(0))
+        if(Input.GetMouseButtonDown(1))
+        {
+            oldMousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        }
+        if (Input.GetMouseButton(1))
         {
             nowMousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        }
-        if (Input.GetMouseButtonUp(0))
-        {
-            nextMousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             nowMousePosition.z = 0;
-            nextMousePosition.z = 0;
-            rect.position += nowMousePosition + nextMousePosition;
+            oldMousePosition.z = 0;
+            rect.position += (nowMousePosition + oldMousePosition) / 10;
+            oldMousePosition = nowMousePosition;
         }
         
 	}

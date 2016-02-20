@@ -5,18 +5,21 @@ using UnityEngine.EventSystems;
 [RequireComponent(typeof(Image))]
 public class DragObject : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
-    public static RectTransform obj;
-    public Vector3 m_position;
+    public  RectTransform obj;
+    private Vector3 m_position;
+
+    public GameObject m_MethodPrefab;
+    public GameObject m_DummyPrefab;
 
     public void Start()
     {
         obj = GetComponent<RectTransform>();
-        m_position = obj.localPosition;
+        m_position = obj.position;
     }
 
     public void OnBeginDrag(PointerEventData e)
     {
-        m_position = obj.localPosition;
+        m_position = obj.position;
         obj.SetAsFirstSibling();
     }
     public void OnDrag(PointerEventData e)
@@ -27,10 +30,26 @@ public class DragObject : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
     }
     public void OnEndDrag(PointerEventData e)
     {
-        obj.localPosition = m_position;
-        obj.SetAsLastSibling();
-		GameController.Instance.PutBlock(e.position);
-        //if(m_isDead) Destroy(gameObject);
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, -Vector2.up);
+        if (hit.collider == null)
+        {
+            obj.position = m_position;
+            return;
+        }
+        if (hit.collider.tag == "dummy")
+        {
+            AbstractMethodBlock past = hit.collider.gameObject.GetComponent<DummyMethod>().m_PastMethod;
+
+            GameObject go = (GameObject)Instantiate(m_MethodPrefab, hit.collider.gameObject.transform.localPosition, Quaternion.identity);
+            go.transform.SetParent(GameObject.Find("Container").transform, false);
+            past.SetNext(go.GetComponent<AbstractMethodBlock>());
+            Destroy(hit.collider.gameObject);
+
+            GameObject dummy = (GameObject)Instantiate(m_DummyPrefab, hit.collider.gameObject.transform.localPosition + new Vector3(0,-65,0), Quaternion.identity);
+            dummy.transform.SetParent(GameObject.Find("Container").transform, false);
+            dummy.GetComponent<DummyMethod>().m_PastMethod = go.GetComponent<AbstractMethodBlock>();
+        }
+        obj.position = m_position;
     }
 
 }
