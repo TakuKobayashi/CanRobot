@@ -19,8 +19,6 @@ public class GameController : SingletonBehaviour<GameController>
     AbstractMethodBlock currentSelectBlock;
     List<AbstractMethodBlock> selectablBlocks;
 
-   
-
     /// <summary>
     /// ブロックを置く
     /// </summary>
@@ -66,7 +64,7 @@ public class GameController : SingletonBehaviour<GameController>
 
 	public AbstractMethodBlock hitBlock(Vector3 pointUpPos){
 		return selectablBlocks.Find ((a) => {
-			Vector3 pos = a.transform.position;
+			Vector3 pos = a.transform.localPosition;
 			Vector3 wh = a.GetComponent<Collider>().bounds.size;
 			return (pos.x - wh.x / 2 <= pointUpPos.x) &&
 				(pos.x + wh.x / 2 <= pointUpPos.x) &&
