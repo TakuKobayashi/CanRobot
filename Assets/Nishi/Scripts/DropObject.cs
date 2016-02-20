@@ -2,38 +2,10 @@
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class DropObject : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPointerExitHandler
+public class DropUI : MonoBehaviour, IDropHandler
 {
-    public Image iconImage;
-    private Sprite nowSprite;
-
-    void Start()
+    public void OnDrop(PointerEventData e)
     {
-        nowSprite = null;
-    }
-
-    public void OnPointerEnter(PointerEventData pointerEventData)
-    {
-        if (pointerEventData.pointerDrag == null) return;
-        Image droppedImage = pointerEventData.pointerDrag.GetComponent<Image>();
-        iconImage.sprite = droppedImage.sprite;
-        iconImage.color = Vector4.one * 0.6f;
-    }
-
-    public void OnPointerExit(PointerEventData pointerEventData)
-    {
-        if (pointerEventData.pointerDrag == null) return;
-        iconImage.sprite = nowSprite;
-        if (nowSprite == null)
-            iconImage.color = Vector4.zero;
-        else
-            iconImage.color = Vector4.one;
-    }
-    public void OnDrop(PointerEventData pointerEventData)
-    {
-        Image droppedImage = pointerEventData.pointerDrag.GetComponent<Image>();
-        iconImage.sprite = droppedImage.sprite;
-        nowSprite = droppedImage.sprite;
-        iconImage.color = Vector4.one;
+        DragObject.obj.position = transform.position;
     }
 }
