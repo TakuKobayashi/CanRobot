@@ -9,10 +9,10 @@ public abstract class AbstractMethodBlock : MonoBehaviour {
 		None,
 	}
 
-	public Situation situation;
+	public MstSituation situation;
 	public State CurrentState;
 
-	public void Initialize(Situation situation){
+	public void Initialize(MstSituation situation){
 		this.situation = situation;
 	}
 

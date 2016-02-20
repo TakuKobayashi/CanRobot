@@ -1,12 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.EventSystems;
 
 public class GameController : SingletonBehaviour<GameController>
 {
     // 選択可能なブロックのリスト
     [SerializeField]
-    List<Situation> mstSituations;
+    List<MstSituation> mstSituations;
     [SerializeField]
     Prefab blockPrefab;
     [SerializeField]
@@ -24,15 +25,15 @@ public class GameController : SingletonBehaviour<GameController>
     /// ブロックを置く
     /// </summary>
     /// <param name="block"></param>
-    public void PutBlock(AbstractMethodBlock block)
-    {
-        //現在の状態
-        var currentSituation = mstSituations.Find((s) => s.id == block.situation.id);
+	public void PutBlock(Vector3 pointUpPos){
+		var block = hitBlock (pointUpPos);
+		if (block == null) return;
+
         //選択できるブロックの　リスト初期化
         selectablBlocks.Clear();
 
         //
-        foreach (int situationId in currentSituation.nextSituationIds)
+		foreach (MstChoice choice in block.situation.choices)
         {
             //次のメソッドを取得するオブジェクト
             GameObject go = Util.InstantiateTo(parentObj, blockPrefab);
@@ -42,9 +43,11 @@ public class GameController : SingletonBehaviour<GameController>
             go.transform.localPosition = pos + addTransformVector;
 
             //次をメソッド探す
-            var nextSituation = mstSituations.Find((s) => s.id == situationId);
+			//var nextSituation = choice.NextSituation;
+			var nextSituation = mstSituations.Find ((s) => s.id == choice.next_situation_id);
 
-            //次のメソッド起動            
+
+            //次のメソッド起動
             AbstractMethodBlock amb = go.GetComponent<AbstractMethodBlock>();
             amb.Initialize(nextSituation);
             amb.CurrentState = AbstractMethodBlock.State.Candidate;
@@ -52,6 +55,25 @@ public class GameController : SingletonBehaviour<GameController>
         }
 
         currentSelectBlock = block;
-        currentSelectBlock.CurrentState = AbstractMethodBlock.State.Selecting;
+		foreach(var b in selectablBlocks){
+			if (b == block) {
+				currentSelectBlock.CurrentState = AbstractMethodBlock.State.Selecting;
+			} else {
+				currentSelectBlock.CurrentState = AbstractMethodBlock.State.None;
+			}
+		}
     }
+
+	public AbstractMethodBlock hitBlock(Vector3 pointUpPos){
+		return selectablBlocks.Find ((a) => {
+			Vector3 pos = a.transform.position;
+			Vector3 wh = a.GetComponent<Collider>().bounds.size;
+			return (pos.x - wh.x / 2 <= pointUpPos.x) &&
+				(pos.x + wh.x / 2 <= pointUpPos.x) &&
+				(pos.y - wh.y / 2 <= pointUpPos.y) &&
+				(pos.y + wh.y / 2 <= pointUpPos.y) &&
+				(pos.z - wh.z / 2 <= pointUpPos.z) &&
+				(pos.z + wh.z / 2 <= pointUpPos.z);
+		});
+	}
 }
