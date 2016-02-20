@@ -23,9 +23,10 @@ public class GameController : SingletonBehaviour<GameController>
 
 	void Awake(){
 		MstSituation situation = mstSituations[0];
-		GameObject go = Util.InstantiateTo(parentObj, blockPrefab);
-		go.transform.localPosition = initPositionVector;
-		createBlocks(go.GetComponent<AbstractMethodBlock>());
+		currentSelectBlock = Util.InstantiateTo(parentObj, blockPrefab).GetComponent<AbstractMethodBlock> ();
+		currentSelectBlock.transform.localPosition = initPositionVector;
+		currentSelectBlock.Initialize (situation);
+		createBlocks(currentSelectBlock);
 	}
 
     /// <summary>
@@ -41,7 +42,10 @@ public class GameController : SingletonBehaviour<GameController>
 	public AbstractMethodBlock hitBlock(Vector3 pointUpPos){
 		return selectablBlocks.Find ((a) => {
 			Vector3 pos = a.transform.localPosition;
-			Vector3 wh = a.GetComponent<Collider>().bounds.size;
+			Vector3 wh = a.GetComponent<BoxCollider2D>().bounds.size;
+			Debug.Log(pos);
+			Debug.Log(wh);
+			Debug.Log(pointUpPos);
 			return (pos.x - wh.x / 2 <= pointUpPos.x) &&
 				(pos.x + wh.x / 2 <= pointUpPos.x) &&
 				(pos.y - wh.y / 2 <= pointUpPos.y) &&
@@ -54,6 +58,8 @@ public class GameController : SingletonBehaviour<GameController>
 	void createBlocks(AbstractMethodBlock block){
 		//選択できるブロックの　リスト初期化
 		selectablBlocks.Clear();
+
+		Debug.Log(block.situation.choices.Count);
 
 		//
 		foreach (MstChoice choice in block.situation.choices)
