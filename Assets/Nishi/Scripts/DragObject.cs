@@ -20,13 +20,15 @@ public class DragObject : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
     }
     public void OnDrag(PointerEventData e)
     {
+        obj.SetAsLastSibling();
         obj.position = e.position;
     }
     public void OnEndDrag(PointerEventData e)
     {
+        obj.SetAsLastSibling();
         GameController.Instance.PutBlock(m_position);
         //if(m_isDead) Destroy(gameObject);
-        obj.SetAsLastSibling();
+        
 
     }
 
