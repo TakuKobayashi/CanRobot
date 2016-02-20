@@ -40,11 +40,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dontDestroyOnLoad: 1
-  mstSituations: []
+  mstSituations:
+  - id: 1
+    message: aaaaaaaa
+    choices:
+    - id: 1
+      situation_id: 1
+      next_situation_id: 2
+      label: hoge
   blockPrefab:
     _gameObject: {fileID: 173572, guid: 4200119744e7dcc47af22357a58d1560, type: 2}
   addTransformVector: {x: 0, y: -20, z: 0}
   parentObj: {fileID: 0}
+  initPositionVector: {x: 100, y: 100, z: 0}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

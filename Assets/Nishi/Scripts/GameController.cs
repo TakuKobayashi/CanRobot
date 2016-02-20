@@ -14,10 +14,19 @@ public class GameController : SingletonBehaviour<GameController>
     Vector3 addTransformVector;
     [SerializeField]
     GameObject parentObj;
+	[SerializeField]
+	Vector3 initPositionVector;
 
     // 現在のブロック
     AbstractMethodBlock currentSelectBlock;
-    List<AbstractMethodBlock> selectablBlocks;
+	List<AbstractMethodBlock> selectablBlocks = new List<AbstractMethodBlock>();
+
+	void Awake(){
+		MstSituation situation = mstSituations[0];
+		GameObject go = Util.InstantiateTo(parentObj, blockPrefab);
+		go.transform.localPosition = initPositionVector;
+		createBlocks(go.GetComponent<AbstractMethodBlock>());
+	}
 
     /// <summary>
     /// ブロックを置く
@@ -26,40 +35,7 @@ public class GameController : SingletonBehaviour<GameController>
 	public void PutBlock(Vector3 pointUpPos){
 		var block = hitBlock (pointUpPos);
 		if (block == null) return;
-
-        //選択できるブロックの　リスト初期化
-        selectablBlocks.Clear();
-
-        //
-		foreach (MstChoice choice in block.situation.choices)
-        {
-            //次のメソッドを取得するオブジェクト
-            GameObject go = Util.InstantiateTo(parentObj, blockPrefab);
-            Vector3 pos = currentSelectBlock.transform.localPosition;
-
-            //次のメソッドの位置に移動
-            go.transform.localPosition = pos + addTransformVector;
-
-            //次をメソッド探す
-			//var nextSituation = choice.NextSituation;
-			var nextSituation = mstSituations.Find ((s) => s.id == choice.next_situation_id);
-
-
-            //次のメソッド起動
-            AbstractMethodBlock amb = go.GetComponent<AbstractMethodBlock>();
-            amb.Initialize(nextSituation);
-            amb.CurrentState = AbstractMethodBlock.State.Candidate;
-            selectablBlocks.Add(amb);
-        }
-
-        currentSelectBlock = block;
-		foreach(var b in selectablBlocks){
-			if (b == block) {
-				currentSelectBlock.CurrentState = AbstractMethodBlock.State.Selecting;
-			} else {
-				currentSelectBlock.CurrentState = AbstractMethodBlock.State.None;
-			}
-		}
+		createBlocks (block);
     }
 
 	public AbstractMethodBlock hitBlock(Vector3 pointUpPos){
@@ -73,5 +49,41 @@ public class GameController : SingletonBehaviour<GameController>
 				(pos.z - wh.z / 2 <= pointUpPos.z) &&
 				(pos.z + wh.z / 2 <= pointUpPos.z);
 		});
+	}
+
+	void createBlocks(AbstractMethodBlock block){
+		//選択できるブロックの　リスト初期化
+		selectablBlocks.Clear();
+
+		//
+		foreach (MstChoice choice in block.situation.choices)
+		{
+			//次のメソッドを取得するオブジェクト
+			GameObject go = Util.InstantiateTo(parentObj, blockPrefab);
+			Vector3 pos = currentSelectBlock.transform.localPosition;
+
+			//次のメソッドの位置に移動
+			go.transform.localPosition = pos + addTransformVector;
+
+			//次をメソッド探す
+			//var nextSituation = choice.NextSituation;
+			var nextSituation = mstSituations.Find ((s) => s.id == choice.next_situation_id);
+
+
+			//次のメソッド起動
+			AbstractMethodBlock amb = go.GetComponent<AbstractMethodBlock>();
+			amb.Initialize(nextSituation);
+			amb.CurrentState = AbstractMethodBlock.State.Candidate;
+			selectablBlocks.Add(amb);
+		}
+
+		currentSelectBlock = block;
+		foreach(var b in selectablBlocks){
+			if (b == block) {
+				currentSelectBlock.CurrentState = AbstractMethodBlock.State.Selecting;
+			} else {
+				currentSelectBlock.CurrentState = AbstractMethodBlock.State.None;
+			}
+		}
 	}
 }
