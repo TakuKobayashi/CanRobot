@@ -6,7 +6,12 @@ using UnityEngine.EventSystems;
 public class DragObject : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
     public static RectTransform obj;
-    public bool m_isDead = true;
+    public Vector3 m_position;
+
+    public void Start()
+    {
+        m_position = obj.localPosition;
+    }
 
     public void OnBeginDrag(PointerEventData e)
     {
@@ -19,7 +24,10 @@ public class DragObject : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
     }
     public void OnEndDrag(PointerEventData e)
     {
-        if(m_isDead) Destroy(gameObject);
+        GameController.Instance.PutBlock(m_position);
+        //if(m_isDead) Destroy(gameObject);
+        obj.SetAsLastSibling();
+
     }
 
 }
