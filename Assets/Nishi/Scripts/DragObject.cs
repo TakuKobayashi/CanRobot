@@ -29,10 +29,8 @@ public class DragObject : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
     {
         obj.localPosition = m_position;
         obj.SetAsLastSibling();
-        GameController.Instance.PutBlock(m_position);
+		GameController.Instance.PutBlock(e.position);
         //if(m_isDead) Destroy(gameObject);
-
-
     }
 
 }
