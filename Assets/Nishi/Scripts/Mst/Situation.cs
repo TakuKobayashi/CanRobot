@@ -10,6 +10,7 @@ public class MstSituation{
 	public List<MstChoice> choices;
 }
 
+[Serializable]
 public class MstChoice{
 	public int id;
 	public int situation_id;
