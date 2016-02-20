@@ -6,6 +6,7 @@ using UnityEngine.EventSystems;
 public class DragObject : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
     public static RectTransform obj;
+    public bool m_isDead = true;
 
     public void OnBeginDrag(PointerEventData e)
     {
@@ -18,6 +19,7 @@ public class DragObject : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
     }
     public void OnEndDrag(PointerEventData e)
     {
-        obj.SetAsLastSibling();
+        if(m_isDead) Destroy(gameObject);
     }
+
 }
