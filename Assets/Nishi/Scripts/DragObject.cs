@@ -10,6 +10,7 @@ public class DragObject : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
 
     public void Start()
     {
+        obj = GetComponent<RectTransform>();
         m_position = obj.localPosition;
     }
 
