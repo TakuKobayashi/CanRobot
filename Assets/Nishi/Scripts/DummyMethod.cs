@@ -9,5 +9,6 @@ public class DummyMethod : AbstractMethodBlock
     public override void Method()
     {
         Debug.Log("処理の終了");
+        
     }
 }

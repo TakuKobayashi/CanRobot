@@ -35,7 +35,7 @@ public class MoveMethodBlock : AbstractMethodBlock {
         }
         else
         {
-            
+
             LeanTween.move(player.rectTransform, player.rectTransform.localPosition + (m_MovePower * m_Move), 1f)
                 .setDelay(0.5f);
             Debug.Log(gameObject.name+"次の処理がありません");
