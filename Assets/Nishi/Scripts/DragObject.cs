@@ -48,7 +48,9 @@ public class DragObject : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
             GameObject dummy = (GameObject)Instantiate(m_DummyPrefab, hit.collider.gameObject.transform.localPosition + new Vector3(0,-65,0), Quaternion.identity);
             dummy.transform.SetParent(GameObject.Find("Container").transform, false);
             dummy.GetComponent<DummyMethod>().m_PastMethod = go.GetComponent<AbstractMethodBlock>();
+            Debug.Log(go.GetComponent<AbstractMethodBlock>().m_NextMethod);
             go.GetComponent<AbstractMethodBlock>().SetNext(dummy.GetComponent<DummyMethod>());
+            Debug.Log(go.GetComponent<AbstractMethodBlock>().m_NextMethod);
 
         }
         obj.position = m_position;
