@@ -48,12 +48,14 @@ window.onload = function(){
     var bgRPath = "Resources/Textures/UI/BG/SGJ_background_R_02.png";
     var robotWork = "Resources/Textures/Character/robot_walk_s.png";
     var dragButton = "Resources/Textures/UI/Buttons/B_Active.png";
+    var bgmPath = "Resources/Sounds/SE/Robot_Walk_02.wav";
 
     game.preload(["chara1.png", 
         bgLPath,
         bgRPath,
         robotWork,
-        dragButton]);
+        dragButton,
+        bgmPath]);
 
     /**
      * Core#onload
@@ -97,7 +99,12 @@ window.onload = function(){
         bt = new Sprite(100, 100);
         bt.x = 50;
         bt.y = 50;    // Sprite の左上の x, y 座標を指定
-        bt.image = game.assets[dragButton]
+        bt.image = game.assets[dragButton];
+
+        bgm = game.assets[bgmPath];
+        game.rootScene.addEventListener("enterframe", function(){
+          bgm.play();
+        });
 
         /**
          * Node.x Node.y {Number}
