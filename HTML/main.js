@@ -14,6 +14,7 @@ var bgLPath = "Resources/Textures/UI/BG/SGJ_background_L_02.png";
 var bgRPath = "Resources/Textures/UI/BG/SGJ_background_R_02.png";
 var robotWork = "Resources/Textures/Character/robot_walk_s.png";
 var dragButton = "Resources/Textures/UI/Buttons/B_Active.png";
+var dragButtonActive = "Resources/Textures/UI/Buttons/B_Selectiv.png";
 var dragFrame = "Resources/Textures/png/line.png";
 var yajirushi = "Resources/Textures/png/yajirushi.png";
 var bgmPath = "Resources/Sounds/SE/Robot_Walk_02.wav";
@@ -50,6 +51,7 @@ window.onload = function(){
       yaji.x = newFrame.x + (newFrame.width / 2) - (yaji.width / 2);
       yaji.y = newFrame.y - yaji.height;
       yaji.image = game.assets[yajirushi];
+      before.image = game.assets[dragButtonActive];
       game.rootScene.addChild(newFrame);
       game.rootScene.addChild(yaji);
       frames.push(newFrame);
@@ -77,6 +79,7 @@ window.onload = function(){
         dragButton,
         bgmPath,
         dragFrame,
+        dragButtonActive,
         yajirushi]);
 
     /**
