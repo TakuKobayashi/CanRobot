@@ -18,7 +18,9 @@ var dragButton = "Resources/Textures/UI/Buttons/B_Active.png";
 var dragButtonActive = "Resources/Textures/UI/Buttons/B_NonActive.png";
 var dragFrame = "Resources/Textures/png/line.png";
 var yajirushi = "Resources/Textures/png/yajirushi.png";
-var bgmPath = "Resources/Sounds/SE/Robot_Walk_02.wav";
+var bgmPath = "Resources/Sounds/SE/roboBGM.mp3";
+var clearBgPath = "Resources/Textures/UI/BG/background_gameclear.png";
+var isGoal = false;
 
 var frames = [];
 
@@ -82,6 +84,7 @@ window.onload = function(){
         dragFrame,
         dragButtonActive,
         goalPath,
+        clearBgPath,
         yajirushi]);
 
     /**
@@ -188,6 +191,17 @@ window.onload = function(){
 
         robot.addEventListener("enterframe", function(){
             this.frame = (this.age / 4) % 8 + 1;
+            if(isGoal){
+              if(this.x >= 775){
+                clearBg = new Sprite(960, 540);
+                clearBg.x = 0;
+                clearBg.y = 0;    // Sprite の左上の x, y 座標を指定
+                clearBg.image = game.assets[clearBgPath];
+                game.rootScene.addChild(clearBg);
+              }else{
+                this.x += 3;
+              }
+            }
         });
         // タッチしたときに移動させる
         game.rootScene.addEventListener('touchstart', function(e){
@@ -207,6 +221,7 @@ window.onload = function(){
             var currentFrame = frames[frames.length - 1];
             if(currentFrame.x <= e.localX && e.localX <= (currentFrame.x + currentFrame.width) && (currentFrame.y <= e.localY && e.localY <= currentFrame.y + currentFrame.height)){
                addFrame(currentFrame);
+               isGoal = true;
             }
         });
     };
