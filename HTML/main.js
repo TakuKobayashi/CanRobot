@@ -24,6 +24,11 @@ var isGoal = false;
 
 var frames = [];
 
+var stageClearMessages = {
+  0: "西暦2026年、家庭用ロボットが普及し始めた時代。\nいま流行のロボットは、決められた動きをするだけでなく¥nカスタマイズして持ち主の望む行動をインプットできることが特徴だ。¥n¥n自分専用のロボを手に入れたあなたは、さっそく動かすことに成功した。¥n¥n次はどうしようか。ロボを走らせてみようか。¥nしかし、路上には空き缶などのゴミが多く、¥nロボを走らせて転んだりしたら壊れてしまうかもしれない。¥n¥nどうしよう…そうだ、これを次の目標にしよう！¥nあなたは、空き缶をロボに拾わせることにした。\n\nロボが空き缶を拾うようにカスタマイズしよう！",
+  1: "見事、空き缶をロボに拾わせることに成功したあなた。¥n¥nしかし、捨てられている空き缶はまだまだある。¥nしかも今度は、アルミ缶とスチール缶が混在している。¥nここのゴミ箱はアルミ缶とスチール缶を分けられるようになっている。¥n¥n空き缶を集めて新しい缶にリサイクルするためには、¥nアルミ缶とスチール缶を区別する必要があるらしい。¥n¥nロボがアルミ缶とスチール缶を分けて回収するようにカスタマイズしよう！",
+}
+
 /*
  * window.onload
  *
@@ -207,6 +212,14 @@ window.onload = function(){
                 clearBg.y = 0;    // Sprite の左上の x, y 座標を指定
                 clearBg.image = game.assets[clearBgPath];
                 game.rootScene.addChild(clearBg);
+                clearMessage = new enchant.Label();
+                clearMessage.text = stageClearMessages[0];
+                clearMessage.width = 640;
+                clearMessage.height = 368;
+                clearMessage.x = 160;
+                clearMessage.y = 172;
+                clearMessage.font = "24px 'Arial'";
+                game.rootScene.addChild(clearMessage);
               }else{
                 this.x += 3;
               }
