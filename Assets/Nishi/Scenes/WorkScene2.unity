@@ -263,6 +263,7 @@ GameObject:
   - 95: {fileID: 448505489}
   - 61: {fileID: 448505493}
   - 82: {fileID: 448505492}
+  - 114: {fileID: 448505494}
   m_Layer: 5
   m_Name: Robot
   m_TagString: Player
@@ -425,6 +426,19 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Size: {x: 150, y: 300}
+--- !u!114 &448505494
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 448505487}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: faa011bbe52609b46a36c39682449b23, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _RobotState: 0
+  _AudioSource: {fileID: 0}
 --- !u!1 &1079154746
 GameObject:
   m_ObjectHideFlags: 0
@@ -1431,9 +1445,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9d64d6d6ec7f0e45936a9d25627aa2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dontDestroyOnLoad: 0
-  _ClearUi: {fileID: 0}
-  _GameOverUi: {fileID: 0}
 --- !u!1 &2050889594 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 189628, guid: 2ce2ecbdb5403c6438297e0a12d1f79d, type: 2}
