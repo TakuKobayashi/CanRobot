@@ -12,12 +12,15 @@ enchant();
 
 var bgLPath = "Resources/Textures/UI/BG/SGJ_background_L_02.png";
 var bgRPath = "Resources/Textures/UI/BG/SGJ_background_R_02.png";
+var goalPath = "Resources/Textures/Items/goal.png";
 var robotWork = "Resources/Textures/Character/robot_walk_s.png";
 var dragButton = "Resources/Textures/UI/Buttons/B_Active.png";
 var dragButtonActive = "Resources/Textures/UI/Buttons/B_NonActive.png";
 var dragFrame = "Resources/Textures/png/line.png";
 var yajirushi = "Resources/Textures/png/yajirushi.png";
-var bgmPath = "Resources/Sounds/SE/Robot_Walk_02.wav";
+var bgmPath = "Resources/Sounds/SE/roboBGM.mp3";
+var clearBgPath = "Resources/Textures/UI/BG/background_gameclear.png";
+var isGoal = false;
 
 var frames = [];
 
@@ -80,6 +83,8 @@ window.onload = function(){
         bgmPath,
         dragFrame,
         dragButtonActive,
+        goalPath,
+        clearBgPath,
         yajirushi]);
 
     /**
@@ -98,13 +103,6 @@ window.onload = function(){
      */
     game.onload = function(){
         /**
-         * new Sprite(width, height)
-         * スプライトオブジェクトを作成する。
-         * Sprite は、Entity, Node, EventTarget を継承しており、それぞれのメソッドやプロパティを使うことができる。
-         */
-        bear = new Sprite(32, 32);
-
-        /**
          * Sprite.image {Object}
          * Core#preload で指定されたファイルは、Core.assets のプロパティとして格納される。
          * Sprite.image にこれを代入することで、画像を表示することができる
@@ -119,6 +117,11 @@ window.onload = function(){
         backgroundL.y = 0;    // Sprite の左上の x, y 座標を指定
         backgroundL.image = game.assets[bgLPath];
 
+        goal = new Sprite(150, 125);
+        goal.x = 960 - goal.width;
+        goal.y = (640 / 2) - (goal.height / 2);    // Sprite の左上の x, y 座標を指定
+        goal.image = game.assets[goalPath];
+
         bt = new Sprite(100, 100);
         bt.x = 25;
         bt.y = 25;    // Sprite の左上の x, y 座標を指定
@@ -128,24 +131,6 @@ window.onload = function(){
         game.rootScene.addEventListener("enterframe", function(){
           bgm.play();
         });
-
-        /**
-         * Node.x Node.y {Number}
-         * x, y 座標を指定する。
-         * viewport の大きさに合わせて画面が拡大縮小されている場合も、
-         * オリジナルの座標系で指定できる。
-         */
-        bear.x = 0;
-        bear.y = 0;
-
-        /**
-         * Sprite.frame {Number}
-         * (width, height) ピクセルの格子で指定された画像を区切り、
-         * 左上から数えて frame 番目の画像を表示することができる。
-         * デフォルトでは、0:左上の画像が表示される。
-         * このサンプルでは、シロクマが立っている画像を表示する (chara1.gif 参照)。
-         */
-        bear.frame = 5;
 
         robot = new Sprite(150, 200);
 
@@ -183,6 +168,7 @@ window.onload = function(){
         game.rootScene.addChild(backgroundL);
         game.rootScene.addChild(bt);
         game.rootScene.addChild(backgroundR);
+        game.rootScene.addChild(goal);
         game.rootScene.addChild(robot);
         game.rootScene.addChild(firstFrame);
 
@@ -205,20 +191,18 @@ window.onload = function(){
 
         robot.addEventListener("enterframe", function(){
             this.frame = (this.age / 4) % 8 + 1;
+            if(isGoal){
+              if(this.x >= 775){
+                clearBg = new Sprite(960, 540);
+                clearBg.x = 0;
+                clearBg.y = 0;    // Sprite の左上の x, y 座標を指定
+                clearBg.image = game.assets[clearBgPath];
+                game.rootScene.addChild(clearBg);
+              }else{
+                this.x += 3;
+              }
+            }
         });
-
-        /**
-         * タッチされると消える処理を実現するために、
-         * touchstart イベントが起こったとき、クマが消える処理をリスナとして追加する。
-         */
-        bear.addEventListener("touchstart", function(){
-            /**
-             * クマを game.rootScene から削除する。
-             * Group#addChild の逆は Group#removeChild。
-             */
-            game.rootScene.removeChild(bear);
-        });
-
         // タッチしたときに移動させる
         game.rootScene.addEventListener('touchstart', function(e){
             bt.x = e.localX
@@ -237,6 +221,7 @@ window.onload = function(){
             var currentFrame = frames[frames.length - 1];
             if(currentFrame.x <= e.localX && e.localX <= (currentFrame.x + currentFrame.width) && (currentFrame.y <= e.localY && e.localY <= currentFrame.y + currentFrame.height)){
                addFrame(currentFrame);
+               isGoal = true;
             }
         });
     };
