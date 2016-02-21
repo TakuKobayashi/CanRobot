@@ -7,10 +7,10 @@ namespace CanRobot{
     /// </summary>
     public class SceneManager : MonoBehaviour {
         //シーンのロード
-        public static void TitleLoad() { UnityEngine.SceneManagement.SceneManager.LoadScene("Title", LoadSceneMode.Additive); }
-        public static void MainLoad() { UnityEngine.SceneManagement.SceneManager.LoadScene("Main", LoadSceneMode.Additive); }
-        public static void GameClearLoad(int num) { UnityEngine.SceneManagement.SceneManager.LoadScene("GameClear" + num.ToString("00"), LoadSceneMode.Additive); }
-        public static void GameOverLoad() { UnityEngine.SceneManagement.SceneManager.LoadScene("GameOver", LoadSceneMode.Additive); }
+        public static void TitleLoad() { UnityEngine.SceneManagement.SceneManager.LoadScene("Title", LoadSceneMode.Single); }
+        public static void MainLoad() { UnityEngine.SceneManagement.SceneManager.LoadScene("Main", LoadSceneMode.Single); }
+        public static void GameClearLoad(int num) { UnityEngine.SceneManagement.SceneManager.LoadScene("GameClear" + num.ToString("00"), LoadSceneMode.Single); }
+        public static void GameOverLoad() { UnityEngine.SceneManagement.SceneManager.LoadScene("GameOver", LoadSceneMode.Single); }
 
         //シーンのアンロード
         public static void TitleUnLoad() { UnityEngine.SceneManagement.SceneManager.UnloadScene("Title"); }
