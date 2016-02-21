@@ -1374,7 +1374,6 @@ GameObject:
   - 224: {fileID: 2025521172}
   - 222: {fileID: 2025521174}
   - 114: {fileID: 2025521173}
-  - 114: {fileID: 2025521175}
   m_Layer: 5
   m_Name: BG
   m_TagString: Untagged
@@ -1434,17 +1433,6 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2025521171}
---- !u!114 &2025521175
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2025521171}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a9d64d6d6ec7f0e45936a9d25627aa2c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &2050889594 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 189628, guid: 2ce2ecbdb5403c6438297e0a12d1f79d, type: 2}
