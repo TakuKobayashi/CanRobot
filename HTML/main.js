@@ -127,6 +127,14 @@ window.onload = function(){
         bt.y = 25;    // Sprite の左上の x, y 座標を指定
         bt.image = game.assets[dragButton];
 
+        label = new enchant.Label();
+        label.text = "歩く";
+        label.width = 24;
+        label.height = 12;
+        label.x = bt.x + (bt.width / 2) - (label.width / 2);
+        label.y = bt.y + (bt.height / 2) - (label.height / 2);
+        label.font = "12px 'Arial'";
+
         bgm = game.assets[bgmPath];
         game.rootScene.addEventListener("enterframe", function(){
           bgm.play();
@@ -167,6 +175,7 @@ window.onload = function(){
          */
         game.rootScene.addChild(backgroundL);
         game.rootScene.addChild(bt);
+        game.rootScene.addChild(label);
         game.rootScene.addChild(backgroundR);
         game.rootScene.addChild(goal);
         game.rootScene.addChild(robot);
@@ -207,17 +216,23 @@ window.onload = function(){
         game.rootScene.addEventListener('touchstart', function(e){
             bt.x = e.localX
             bt.y = e.localY
+            label.x = bt.x + (bt.width / 2) - (label.width / 2);
+            label.y = bt.y + (bt.height / 2) - (label.height / 2);
         });
 
         // タッチ座標が動いたときに移動させる
         game.rootScene.addEventListener('touchmove', function(e){
             bt.x = e.localX - bt.width / 2;
             bt.y = e.localY - bt.height / 2;
+            label.x = bt.x + (bt.width / 2) - (label.width / 2);
+            label.y = bt.y + (bt.height / 2) - (label.height / 2);
         });
         // タッチ座標が動いたときに移動させる
         game.rootScene.addEventListener('touchend', function(e){
             bt.x = 25;
             bt.y = 25;
+            label.x = bt.x + (bt.width / 2) - (label.width / 2);
+            label.y = bt.y + (bt.height / 2) - (label.height / 2);
             var currentFrame = frames[frames.length - 1];
             if(currentFrame.x <= e.localX && e.localX <= (currentFrame.x + currentFrame.width) && (currentFrame.y <= e.localY && e.localY <= currentFrame.y + currentFrame.height)){
                addFrame(currentFrame);
