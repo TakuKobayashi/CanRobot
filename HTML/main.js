@@ -50,7 +50,7 @@ window.onload = function(){
     var dragButton = "Resources/Textures/UI/Buttons/B_Active.png";
     var bgmPath = "Resources/Sounds/SE/Robot_Walk_02.wav";
 
-    game.preload(["chara1.png", 
+    game.preload([ 
         bgLPath,
         bgRPath,
         robotWork,
@@ -84,8 +84,6 @@ window.onload = function(){
          * Core#preload で指定されたファイルは、Core.assets のプロパティとして格納される。
          * Sprite.image にこれを代入することで、画像を表示することができる
          */
-        bear.image = game.assets["chara1.png"];
-
         backgroundR = new Sprite(640, 540);
         backgroundR.x = 320;
         backgroundR.y = 0;    // Sprite の左上の x, y 座標を指定
@@ -97,8 +95,8 @@ window.onload = function(){
         backgroundL.image = game.assets[bgLPath];
 
         bt = new Sprite(100, 100);
-        bt.x = 50;
-        bt.y = 50;    // Sprite の左上の x, y 座標を指定
+        bt.x = 25;
+        bt.y = 25;    // Sprite の左上の x, y 座標を指定
         bt.image = game.assets[dragButton];
 
         bgm = game.assets[bgmPath];
@@ -141,7 +139,6 @@ window.onload = function(){
          * デフォルトでは、0:左上の画像が表示される。
          * このサンプルでは、シロクマが立っている画像を表示する (chara1.gif 参照)。
          */
-        bear.frame = 4;
 
         
         /**
@@ -155,7 +152,6 @@ window.onload = function(){
         game.rootScene.addChild(backgroundL);
         game.rootScene.addChild(bt);
         game.rootScene.addChild(backgroundR);
-        game.rootScene.addChild(bear);
         game.rootScene.addChild(robot);
 
         /**
@@ -174,20 +170,6 @@ window.onload = function(){
          * ここでは、右に向かって走っていくアニメーションを表現するために、
          * 新しいフレームが描画される前に、毎回クマの画像を切り替え、x座標を1増やすという処理をリスナとして追加する。
          */
-        bear.addEventListener("enterframe", function(){
-            /**
-             * クマを走らせるために、x座標をインクリメントしている。
-             * この無名関数 function(){ ... } は enterframe イベントのリスナなので、毎フレーム実行される。
-             */
-            this.x += 1;
-
-            /**
-             * this.age (Node.age) は、クマのオブジェクトが今までに何回描画されたか
-             * クマの画像を変えて走るアニメーションを表現するために、
-             * frame を 6 -> 7 -> 6 -> 7.. と順番に変えている。
-             */
-            this.frame = this.age % 2 + 6;
-        });
 
         robot.addEventListener("enterframe", function(){
             this.frame = (this.age / 4) % 8 + 1;
