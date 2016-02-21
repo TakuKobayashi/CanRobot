@@ -10,6 +10,17 @@
  */
 enchant();
 
+var bgLPath = "Resources/Textures/UI/BG/SGJ_background_L_02.png";
+var bgRPath = "Resources/Textures/UI/BG/SGJ_background_R_02.png";
+var robotWork = "Resources/Textures/Character/robot_walk_s.png";
+var dragButton = "Resources/Textures/UI/Buttons/B_Active.png";
+var dragButtonActive = "Resources/Textures/UI/Buttons/B_Selectiv.png";
+var dragFrame = "Resources/Textures/png/line.png";
+var yajirushi = "Resources/Textures/png/yajirushi.png";
+var bgmPath = "Resources/Sounds/SE/Robot_Walk_02.wav";
+
+var frames = [];
+
 /*
  * window.onload
  *
@@ -30,6 +41,22 @@ window.onload = function(){
      */
     var game = new Core(960, 540);
 
+    // バナナを増やす関数 (6フレームごとに呼ばれる)
+    var addFrame = function(before){
+      var newFrame = new Sprite(100, 100);    // Spriteを生成
+      var yaji = new Sprite(24, 100);
+      newFrame.x = 100;
+      newFrame.y = before.y + before.height + yaji.height;
+      newFrame.image = game.assets[dragFrame];
+      yaji.x = newFrame.x + (newFrame.width / 2) - (yaji.width / 2);
+      yaji.y = newFrame.y - yaji.height;
+      yaji.image = game.assets[yajirushi];
+      before.image = game.assets[dragButtonActive];
+      game.rootScene.addChild(newFrame);
+      game.rootScene.addChild(yaji);
+      frames.push(newFrame);
+    };
+
     /**
      * Core.fps
      *
@@ -44,18 +71,16 @@ window.onload = function(){
      * Set needed file lists in relative/absolute path for attributes of Core#preload
      * 必要なファイルを相対パスで引数に指定する。 ファイルはすべて、ゲームが始まる前にロードされる。
      */
-    var bgLPath = "Resources/Textures/UI/BG/SGJ_background_L_02.png";
-    var bgRPath = "Resources/Textures/UI/BG/SGJ_background_R_02.png";
-    var robotWork = "Resources/Textures/Character/robot_walk_s.png";
-    var dragButton = "Resources/Textures/UI/Buttons/B_Active.png";
-    var bgmPath = "Resources/Sounds/SE/Robot_Walk_02.wav";
 
-    game.preload([ 
+    game.preload([
         bgLPath,
         bgRPath,
         robotWork,
         dragButton,
-        bgmPath]);
+        bgmPath,
+        dragFrame,
+        dragButtonActive,
+        yajirushi]);
 
     /**
      * Core#onload
@@ -140,6 +165,12 @@ window.onload = function(){
          * このサンプルでは、シロクマが立っている画像を表示する (chara1.gif 参照)。
          */
 
+         var firstFrame = new Sprite(100, 100);    // Spriteを生成
+         firstFrame.x = 100;
+         firstFrame.y = 150;
+         firstFrame.image = game.assets[dragFrame];
+         frames.push(firstFrame);
+
         
         /**
          * Group#addChild(node) {Function}
@@ -153,6 +184,7 @@ window.onload = function(){
         game.rootScene.addChild(bt);
         game.rootScene.addChild(backgroundR);
         game.rootScene.addChild(robot);
+        game.rootScene.addChild(firstFrame);
 
         /**
          * EventTarget#addEventListener(event, listener)
@@ -195,13 +227,17 @@ window.onload = function(){
 
         // タッチ座標が動いたときに移動させる
         game.rootScene.addEventListener('touchmove', function(e){
-            bt.x = e.localX
-            bt.y = e.localY
+            bt.x = e.localX - bt.width / 2;
+            bt.y = e.localY - bt.height / 2;
         });
         // タッチ座標が動いたときに移動させる
         game.rootScene.addEventListener('touchend', function(e){
-            bt.x = 50
-            bt.y = 50
+            bt.x = 25;
+            bt.y = 25;
+            var currentFrame = frames[frames.length - 1];
+            if(currentFrame.x <= e.localX && e.localX <= (currentFrame.x + currentFrame.width) && (currentFrame.y <= e.localY && e.localY <= currentFrame.y + currentFrame.height)){
+               addFrame(currentFrame);
+            }
         });
     };
 
