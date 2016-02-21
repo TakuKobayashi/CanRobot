@@ -19,14 +19,11 @@ namespace CanRobot.Methods
         public void Awake()
         {
             _AudioSource = this.GetComponent<AudioSource>();
-
         }
         public void Update()
         {
             SEUpdate();
         }
-
-
 
         /// <summary>
         /// サウンドエフェクトのアップデート
@@ -61,6 +58,7 @@ namespace CanRobot.Methods
         /// </summary>
         public void Idle()
         {
+            _AudioSource.Stop();
             _RobotState = RobotState.Idle;
             //アニメーション切り替え
         }
@@ -70,9 +68,9 @@ namespace CanRobot.Methods
         /// </summary>
         public void Move()
         {
-
+            _AudioSource.Play();
             _RobotState = RobotState.Move;
-            //アニメーション切り替え
+            this.GetComponent<Animator>().SetInteger("State",(int)_RobotState);
         }
 
         /// <summary>
@@ -80,9 +78,9 @@ namespace CanRobot.Methods
         /// </summary>
         public void RightTurn()
         {
+            _AudioSource.Play();
             _RobotState = RobotState.Turn;
-            //アニメーション切り替え
-
+            this.GetComponent<Animator>().SetInteger("State", (int)_RobotState);
         }
 
         /// <summary>
@@ -90,8 +88,9 @@ namespace CanRobot.Methods
         /// </summary>
         public void LeftTurn()
         {
+            _AudioSource.Play();
             _RobotState = RobotState.Turn;
-            //アニメーション切り替え
+            this.GetComponent<Animator>().SetInteger("State", (int)_RobotState);
         }
 
         /// <summary>
@@ -99,8 +98,10 @@ namespace CanRobot.Methods
         /// </summary>
         public void PickUp()
         {
+            _AudioSource.Play();
             _RobotState = RobotState.PickUp;
-            //アニメーション切り替え
+            this.GetComponent<Animator>().SetInteger("State", (int)_RobotState);
+
         }
 
     }
