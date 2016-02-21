@@ -44,7 +44,11 @@ window.onload = function(){
      * Set needed file lists in relative/absolute path for attributes of Core#preload
      * 必要なファイルを相対パスで引数に指定する。 ファイルはすべて、ゲームが始まる前にロードされる。
      */
-    game.preload("chara1.png");
+    var bgLPath = "Resources/Textures/UI/BG/SGJ_background_L_02.png";
+    var bgRPath = "Resources/Textures/UI/BG/SGJ_background_R_02.png";
+    game.preload(["chara1.png", 
+        bgLPath,
+        bgRPath]);
 
     /**
      * Core#onload
@@ -75,6 +79,16 @@ window.onload = function(){
          */
         bear.image = game.assets["chara1.png"];
 
+        backgroundR = new Sprite(640, 540);
+        backgroundR.x = 320;
+        backgroundR.y = 0;    // Sprite の左上の x, y 座標を指定
+        backgroundR.image = game.assets[bgRPath]
+
+        backgroundL = new Sprite(320, 540);
+        backgroundL.x = 0;
+        backgroundL.y = 0;    // Sprite の左上の x, y 座標を指定
+        backgroundL.image = game.assets[bgLPath]
+
         /**
          * Node.x Node.y {Number}
          * x, y 座標を指定する。
@@ -100,6 +114,8 @@ window.onload = function(){
          * この rootScene に描画したいオブジェクトを子として追加する (addChild) ことで、毎フレーム描画されるようになる。
          * 引数には enchant.Node を継承したクラス (Entity, Group, Scene, Label, Sprite..) を指定する。
          */
+        game.rootScene.addChild(backgroundR);
+        game.rootScene.addChild(backgroundL);
         game.rootScene.addChild(bear);
 
         /**
