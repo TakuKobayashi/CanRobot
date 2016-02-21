@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.Audio;
 using System.Collections;
+using CanRobot;
 
 // RS
 namespace CanRobot.Methods
@@ -14,8 +15,10 @@ namespace CanRobot.Methods
     }
     public class Player : MonoBehaviour
     {
-        [SerializeField] private RobotState _RobotState = RobotState.Idle;
-        [SerializeField] private AudioSource _AudioSource = null;
+        [SerializeField]
+        private RobotState _RobotState = RobotState.Idle;
+        [SerializeField]
+        private AudioSource _AudioSource = null;
         public void Awake()
         {
             _AudioSource = this.GetComponent<AudioSource>();
@@ -44,7 +47,7 @@ namespace CanRobot.Methods
 
             _AudioSource.Play();
             _RobotState = RobotState.Move;
-            this.GetComponent<Animator>().SetInteger("State",(int)_RobotState);
+            this.GetComponent<Animator>().SetInteger("State", (int)_RobotState);
         }
 
         /// <summary>
@@ -86,5 +89,13 @@ namespace CanRobot.Methods
             this.GetComponent<Animator>().SetInteger("State", (int)_RobotState);
         }
 
+        public void OnCollisionEnter2D(Collision2D collision)
+        {
+            Debug.Log("呼ばれた");
+            if (collision.gameObject.tag == "Goal")
+            {
+                SceneManager.GameClearLoad(00);
+            }
+        }
     }
 }

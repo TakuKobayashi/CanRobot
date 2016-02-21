@@ -9,7 +9,7 @@ namespace CanRobot{
         //シーンのロード
         public static void TitleLoad() { UnityEngine.SceneManagement.SceneManager.LoadScene("Title", LoadSceneMode.Additive); }
         public static void MainLoad() { UnityEngine.SceneManagement.SceneManager.LoadScene("Main", LoadSceneMode.Additive); }
-        public static void GameClearLoad() { UnityEngine.SceneManagement.SceneManager.LoadScene("GameClear", LoadSceneMode.Additive); }
+        public static void GameClearLoad(int num) { UnityEngine.SceneManagement.SceneManager.LoadScene("GameClear" + num.ToString("00"), LoadSceneMode.Additive); }
         public static void GameOverLoad() { UnityEngine.SceneManagement.SceneManager.LoadScene("GameOver", LoadSceneMode.Additive); }
 
         //シーンのアンロード
