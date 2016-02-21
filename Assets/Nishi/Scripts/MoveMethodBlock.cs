@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System;
+using CanRobot.Methods;
 using UnityEngine.UI;
 
 public class MoveMethodBlock : AbstractMethodBlock {
@@ -27,6 +28,7 @@ public class MoveMethodBlock : AbstractMethodBlock {
         Image player = GameObject.FindGameObjectWithTag("Player").GetComponent<Image>();
         if (m_NextMethod != null)
         {
+            player.GetComponent<Player>().Move();
             LeanTween.move(player.rectTransform, player.rectTransform.localPosition + (m_MovePower * m_Move), 1f)
                 .setDelay(0.5f)       
                 .setOnComplete(() => {m_NextMethod.Method(); });
@@ -34,7 +36,7 @@ public class MoveMethodBlock : AbstractMethodBlock {
         }
         else
         {
-
+            player.GetComponent<Player>().Move();
             LeanTween.move(player.rectTransform, player.rectTransform.localPosition + (m_MovePower * m_Move), 1f)
                 .setDelay(0.5f);
             

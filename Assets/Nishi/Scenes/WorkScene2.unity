@@ -41,7 +41,7 @@ RenderSettings:
 LightmapSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 6
-  m_GIWorkflowMode: 1
+  m_GIWorkflowMode: 0
   m_LightmapsMode: 1
   m_GISettings:
     serializedVersion: 2
@@ -425,6 +425,12 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Size: {x: 150, y: 300}
+--- !u!114 &617629619 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 11410768, guid: 807aeff5d09c4ea4fae72f651e6962a7,
+    type: 2}
+  m_PrefabInternal: {fileID: 1709168322}
+  m_Script: {fileID: 11500000, guid: a9178d2104ca833419234fa35a2d7181, type: 3}
 --- !u!1 &1079154746
 GameObject:
   m_ObjectHideFlags: 0
@@ -1431,9 +1437,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9d64d6d6ec7f0e45936a9d25627aa2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dontDestroyOnLoad: 0
-  _ClearUi: {fileID: 0}
-  _GameOverUi: {fileID: 0}
 --- !u!1 &2050889594 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 189628, guid: 2ce2ecbdb5403c6438297e0a12d1f79d, type: 2}
@@ -1454,7 +1457,7 @@ MonoBehaviour:
     message: 
     choices: []
   CurrentState: 0
-  m_NextMethod: {fileID: 0}
+  m_NextMethod: {fileID: 617629619}
 --- !u!224 &2050889599 stripped
 RectTransform:
   m_PrefabParentObject: {fileID: 22416044, guid: 2ce2ecbdb5403c6438297e0a12d1f79d,
