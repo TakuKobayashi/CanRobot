@@ -18,9 +18,10 @@ public class PickupMethod : AbstractMethodBlock {
     public override void Method()
     {
         m_animator = GameObject.FindGameObjectWithTag("Player").GetComponent<Animator>();
-        if(true)
+        AnimatorStateInfo animInfo = m_animator.GetCurrentAnimatorStateInfo(0);
+        if (animInfo.normalizedTime < 1.0f)
         {
-            Method();
+            this.Method();
         }
         else
         {
