@@ -15,6 +15,7 @@ var bgRPath = "Resources/Textures/UI/BG/SGJ_background_R_02.png";
 var robotWork = "Resources/Textures/Character/robot_walk_s.png";
 var dragButton = "Resources/Textures/UI/Buttons/B_Active.png";
 var dragFrame = "Resources/Textures/png/line.png";
+var yajirushi = "Resources/Textures/png/yajirushi.png";
 var bgmPath = "Resources/Sounds/SE/Robot_Walk_02.wav";
 
 var frames = [];
@@ -41,15 +42,17 @@ window.onload = function(){
 
     // バナナを増やす関数 (6フレームごとに呼ばれる)
     var addFrame = function(before){
-      console.log(before);
       var newFrame = new Sprite(100, 100);    // Spriteを生成
+      var yaji = new Sprite(24, 100);
       newFrame.x = 100;
-      newFrame.y = before.y + 150;
+      newFrame.y = before.y + before.height + yaji.height;
       newFrame.image = game.assets[dragFrame];
+      yaji.x = newFrame.x + (newFrame.width / 2) - (yaji.width / 2);
+      yaji.y = newFrame.y - yaji.height;
+      yaji.image = game.assets[yajirushi];
       game.rootScene.addChild(newFrame);
+      game.rootScene.addChild(yaji);
       frames.push(newFrame);
-//      currentFrame = newFrame;
-//      console.log(currentFrame);
     };
 
     /**
@@ -73,7 +76,8 @@ window.onload = function(){
         robotWork,
         dragButton,
         bgmPath,
-        dragFrame]);
+        dragFrame,
+        yajirushi]);
 
     /**
      * Core#onload
