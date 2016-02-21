@@ -46,13 +46,13 @@ window.onload = function(){
      */
     var bgLPath = "Resources/Textures/UI/BG/SGJ_background_L_02.png";
     var bgRPath = "Resources/Textures/UI/BG/SGJ_background_R_02.png";
-    //var robotWork = "Resources/Textures/Character/robot_walk_0.png";
+    var robotWork = "Resources/Textures/Character/robot_walk_s.png";
     var dragButton = "Resources/Textures/UI/Buttons/B_Active.png";
 
     game.preload(["chara1.png", 
         bgLPath,
         bgRPath,
-        //robotWork,
+        robotWork,
         dragButton]);
 
     /**
@@ -116,6 +116,27 @@ window.onload = function(){
          * このサンプルでは、シロクマが立っている画像を表示する (chara1.gif 参照)。
          */
         bear.frame = 5;
+
+        robot = new Sprite(150, 200);
+
+        /**
+         * Sprite.image {Object}
+         * Core#preload で指定されたファイルは、Core.assets のプロパティとして格納される。
+         * Sprite.image にこれを代入することで、画像を表示することができる
+         */
+        robot.image = game.assets[robotWork];
+        robot.x = 350;
+        robot.y = 150;
+        /**
+         * Sprite.frame {Number}
+         * (width, height) ピクセルの格子で指定された画像を区切り、
+         * 左上から数えて frame 番目の画像を表示することができる。
+         * デフォルトでは、0:左上の画像が表示される。
+         * このサンプルでは、シロクマが立っている画像を表示する (chara1.gif 参照)。
+         */
+        bear.frame = 4;
+
+        
         /**
          * Group#addChild(node) {Function}
          * オブジェクトをノードツリーに追加するメソッド。
@@ -128,6 +149,7 @@ window.onload = function(){
         game.rootScene.addChild(bt);
         game.rootScene.addChild(backgroundR);
         game.rootScene.addChild(bear);
+        game.rootScene.addChild(robot);
 
         /**
          * EventTarget#addEventListener(event, listener)
@@ -158,6 +180,10 @@ window.onload = function(){
              * frame を 6 -> 7 -> 6 -> 7.. と順番に変えている。
              */
             this.frame = this.age % 2 + 6;
+        });
+
+        robot.addEventListener("enterframe", function(){
+            this.frame = (this.age / 4) % 8 + 1;
         });
 
         /**
