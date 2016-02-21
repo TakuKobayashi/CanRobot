@@ -6,4 +6,4 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Nishi/Scenes/Test.unity
+    path: Assets/Nishi/Scenes/WorkScene2.unity
