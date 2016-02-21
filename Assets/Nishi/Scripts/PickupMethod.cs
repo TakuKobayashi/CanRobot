@@ -19,6 +19,7 @@ public class PickupMethod : AbstractMethodBlock {
     {
         m_animator = GameObject.FindGameObjectWithTag("Player").GetComponent<Animator>();
         AnimatorStateInfo animInfo = m_animator.GetCurrentAnimatorStateInfo(0);
+        //if(!animInfo.IsName("")) 
         if (animInfo.normalizedTime < 1.0f)
         {
             this.Method();
@@ -28,4 +29,11 @@ public class PickupMethod : AbstractMethodBlock {
             m_NextMethod.Method();
         }
     }
+
+    //private IEnumerable Animation()
+    //{
+
+    //    yield return null; // ステートの反映に1フレームいる。解せぬ
+    //    yield return new WaitForAnimation(animator, 0);
+    //}
 }

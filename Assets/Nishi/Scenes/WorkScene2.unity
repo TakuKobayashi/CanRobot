@@ -164,6 +164,11 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 11493912, guid: 2ce2ecbdb5403c6438297e0a12d1f79d, type: 2}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 09e670c8b1ce58544aab80a87425f868,
+        type: 3}
     m_RemovedComponents:
     - {fileID: 11477664, guid: 2ce2ecbdb5403c6438297e0a12d1f79d, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 2ce2ecbdb5403c6438297e0a12d1f79d, type: 2}
@@ -180,7 +185,7 @@ GameObject:
   - 114: {fileID: 299241689}
   - 114: {fileID: 299241688}
   m_Layer: 5
-  m_Name: ifPallet
+  m_Name: PickupPallet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -211,11 +216,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 299241686}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9822a61859c183648876864f350f34c0, type: 3}
+  m_Script: {fileID: 11500000, guid: 08f328fbc4a4713489f93ee7ce7feae0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   obj: {fileID: 0}
-  m_MethodPrefab: {fileID: 125638, guid: 037d87f9faf9bac45a8b9182969d8732, type: 2}
+  m_MethodPrefab: {fileID: 167980, guid: f99a357d11a134047955315295a0e5ae, type: 2}
   m_DummyPrefab: {fileID: 145824, guid: 807aeff5d09c4ea4fae72f651e6962a7, type: 2}
 --- !u!114 &299241689
 MonoBehaviour:
@@ -545,8 +550,8 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 09e670c8b1ce58544aab80a87425f868, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -1225,6 +1230,11 @@ Prefab:
       propertyPath: m_PastMethod
       value: 
       objectReference: {fileID: 2050889595}
+    - target: {fileID: 11423156, guid: 807aeff5d09c4ea4fae72f651e6962a7, type: 2}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 1ca9d4c86e9f7214eb8cf6e97df2a899,
+        type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 807aeff5d09c4ea4fae72f651e6962a7, type: 2}
   m_IsPrefabParent: 0
