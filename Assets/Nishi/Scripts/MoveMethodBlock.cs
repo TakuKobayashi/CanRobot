@@ -13,7 +13,6 @@ public class MoveMethodBlock : AbstractMethodBlock {
 
 	// Use this for initialization
 	void Start () {
-        m_NextMethod = DebugNextBlock;
 	}
 	
 	// Update is called once per frame
@@ -38,7 +37,7 @@ public class MoveMethodBlock : AbstractMethodBlock {
 
             LeanTween.move(player.rectTransform, player.rectTransform.localPosition + (m_MovePower * m_Move), 1f)
                 .setDelay(0.5f);
-            Debug.Log(gameObject.name+"次の処理がありません");
+            
         }
     }
 
