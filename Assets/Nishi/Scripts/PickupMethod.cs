@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using CanRobot.Methods;
 using System.Collections;
 using System;
 
@@ -19,14 +20,19 @@ public class PickupMethod : AbstractMethodBlock {
     {
         m_animator = GameObject.FindGameObjectWithTag("Player").GetComponent<Animator>();
         AnimatorStateInfo animInfo = m_animator.GetCurrentAnimatorStateInfo(0);
-        //if(!animInfo.IsName("")) 
+        if (!animInfo.IsName("PickUp"))
+        {
+            GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().PickUp();
+        }
+
         if (animInfo.normalizedTime < 1.0f)
         {
-            this.Method();
+            m_NextMethod.Method();
+            
         }
         else
         {
-            m_NextMethod.Method();
+            this.Method();
         }
     }
 
