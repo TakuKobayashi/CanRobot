@@ -36,7 +36,7 @@ window.onload = function(){
      * Set fps (frame per second) in this game to 15.
      * ゲームの fps (frame per second) を指定する。この場合、1秒間あたり15回画面が更新される。
      */
-    game.fps = 15;
+    game.fps = 30;
     /**
      * Core#preload
      *
@@ -46,9 +46,14 @@ window.onload = function(){
      */
     var bgLPath = "Resources/Textures/UI/BG/SGJ_background_L_02.png";
     var bgRPath = "Resources/Textures/UI/BG/SGJ_background_R_02.png";
+    //var robotWork = "Resources/Textures/Character/robot_walk_0.png";
+    var dragButton = "Resources/Textures/UI/Buttons/B_Active.png";
+
     game.preload(["chara1.png", 
         bgLPath,
-        bgRPath]);
+        bgRPath,
+        //robotWork,
+        dragButton]);
 
     /**
      * Core#onload
@@ -82,12 +87,17 @@ window.onload = function(){
         backgroundR = new Sprite(640, 540);
         backgroundR.x = 320;
         backgroundR.y = 0;    // Sprite の左上の x, y 座標を指定
-        backgroundR.image = game.assets[bgRPath]
+        backgroundR.image = game.assets[bgRPath];
 
         backgroundL = new Sprite(320, 540);
         backgroundL.x = 0;
         backgroundL.y = 0;    // Sprite の左上の x, y 座標を指定
-        backgroundL.image = game.assets[bgLPath]
+        backgroundL.image = game.assets[bgLPath];
+
+        bt = new Sprite(100, 100);
+        bt.x = 50;
+        bt.y = 50;    // Sprite の左上の x, y 座標を指定
+        bt.image = game.assets[dragButton]
 
         /**
          * Node.x Node.y {Number}
@@ -114,8 +124,9 @@ window.onload = function(){
          * この rootScene に描画したいオブジェクトを子として追加する (addChild) ことで、毎フレーム描画されるようになる。
          * 引数には enchant.Node を継承したクラス (Entity, Group, Scene, Label, Sprite..) を指定する。
          */
-        game.rootScene.addChild(backgroundR);
         game.rootScene.addChild(backgroundL);
+        game.rootScene.addChild(bt);
+        game.rootScene.addChild(backgroundR);
         game.rootScene.addChild(bear);
 
         /**
@@ -159,6 +170,23 @@ window.onload = function(){
              * Group#addChild の逆は Group#removeChild。
              */
             game.rootScene.removeChild(bear);
+        });
+
+        // タッチしたときに移動させる
+        game.rootScene.addEventListener('touchstart', function(e){
+            bt.x = e.localX
+            bt.y = e.localY
+        });
+
+        // タッチ座標が動いたときに移動させる
+        game.rootScene.addEventListener('touchmove', function(e){
+            bt.x = e.localX
+            bt.y = e.localY
+        });
+        // タッチ座標が動いたときに移動させる
+        game.rootScene.addEventListener('touchend', function(e){
+            bt.x = 50
+            bt.y = 50
         });
     };
 
