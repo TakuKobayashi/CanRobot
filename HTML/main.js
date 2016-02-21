@@ -28,7 +28,7 @@ window.onload = function(){
      * Core オブジェクトを作成する。
      * 画面の大きさは 320ピクセル x 320ピクセル に設定する。
      */
-    var game = new Core(320, 320);
+    var game = new Core(960, 540);
 
     /**
      * Core.fps
